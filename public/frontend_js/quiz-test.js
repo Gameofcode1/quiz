@@ -1223,11 +1223,11 @@ async function askQuestion(totalQuizQuestions, counter, fromBack) {
         `);
       }
     });
- $("#typeSelection .answerInner").append(`
-    <div class="selectionOptions">
-      <button data-val="" data-id="saugat" class="selectionBtns selectionBtn" > None of the above</button>
-    </div>
-  `);
+//  $("#typeSelection .answerInner").append(`
+//     <div class="selectionOptions">
+//       <button data-val="" data-id="saugat" class="selectionBtns selectionBtn" > None of the above</button>
+//     </div>
+//   `);
     if (alreadyAnswered && alreadyAnswered.answer) {
       if (Array.isArray(alreadyAnswered.answer)) {
         alreadyAnswered.answer.forEach((answer) => {
@@ -1817,12 +1817,12 @@ function handleNoneOfTheAbove() {
   nextQuestion();
 }
 
-function handleImageMissing(self) {
-  $(self).addClass("image-missing");
-}
+// function handleImageMissing(self) {
+//   $(self).addClass("image-missing");
+// }
 
-function checkAllergie() {
-let values= document.getElementById('').values;
-}
+// function checkAllergie() {
+// let values= document.getElementById('').values;
+// }
 
 
