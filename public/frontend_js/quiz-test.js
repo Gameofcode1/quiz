@@ -86,7 +86,8 @@ $(document).on("click", ".beginButton", async function () {
   return nextQuestion();
 });
 
-$(document).on("click", ".goBottom", function () {
+$(document).on("click", ".selectionBtn", function () {
+console.log("gggg")
   $("html, body").animate({ scrollTop: $(document).height() }, "slow");
 });
 
@@ -806,9 +807,9 @@ async function nextQuestion(goBack, goBackFromResponse, fromDependedOn) {
             $("#page4 .customImgRow .imgRowInner p").append(`${responseHeader}`);
             responseOnGoing = true;
             hasNoResponse = false;
-            // closeResponseTimeout = setTimeout(async () => {
-            //   closeResponse();
-            // }, closeResponseTimeoutCounter);
+            closeResponseTimeout = setTimeout(async () => {
+              closeResponse();
+            }, closeResponseTimeoutCounter);
           }
         } else if (apiQues.answers && apiQues.answers[0].responseBody) {
           $("#page3").css("display", "none");
@@ -1202,11 +1203,17 @@ async function askQuestion(totalQuizQuestions, counter, fromBack) {
       $("#myRange").trigger("input", [true]);
     }
   } // type 6 ends here
+
+
+
+
+
+
+  
   else if (type == 7) {
     $("#typeSelection .answerInner").html("");
     $("#typeSelection").css("display", "block");
     currentActiveAnswerType = "typeSelection";
-
     ques.answers.forEach((val, index) => {
       if (val.answer) {
         $("#typeSelection .answerInner").append(`
@@ -1216,24 +1223,34 @@ async function askQuestion(totalQuizQuestions, counter, fromBack) {
         `);
       }
     });
-
+//  $("#typeSelection .answerInner").append(`
+//     <div class="selectionOptions">
+//       <button data-val="" data-id="saugat" class="selectionBtns selectionBtn" > None of the above</button>
+//     </div>
+//   `);
     if (alreadyAnswered && alreadyAnswered.answer) {
       if (Array.isArray(alreadyAnswered.answer)) {
         alreadyAnswered.answer.forEach((answer) => {
           if (!["Banana", "Olive", "Sunflowers"].includes(answer)) {
-            $(`#typeSelection button[data-val="${answer}"]`).trigger("click", [true]);
+            $(`#typeSelection button[data-val="${answer}"]`).trigger("click",checkAllergie);
           }
         });
       }
     } else if (currenQuesAnswerObj && currenQuesAnswerObj.answer && !alreadyAnswered) {
+     
       if (Array.isArray(currenQuesAnswerObj.answer)) {
         currenQuesAnswerObj.answer.forEach((answer) => {
-          if (!["Banana", "Olive", "Sunflowers"].includes(answer)) {
-            $(`#typeSelection button[data-val="${answer}"]`).trigger("click", [true]);
+          if (["Banana", "Olive", "Sunflowers"].includes(answer)) {
+            $(`#typeSelection button[data-val="${answer}"]`).trigger("click",checkAllergie);
+          }
+          else{
+            $(`#typeSelection button[data-val="${answer}"]`).trigger("click",checkAllergie);
           }
         });
       }
     }
+   
+  
   } //type 7 ends here
   else if (type == 8) {
     $("#typeGeo").css("display", "block");
@@ -1672,6 +1689,7 @@ $(document).on("input", "#myRange", async function (event, isCustom) {
 });
 
 $(document).on("click", ".selectionBtn", function (evt, isCustom) {
+  console.log
   clearTimeout(timeout);
   var val = $(this).attr("data-val");
   if ($(this).hasClass("active")) {
@@ -1799,6 +1817,12 @@ function handleNoneOfTheAbove() {
   nextQuestion();
 }
 
-function handleImageMissing(self) {
-  $(self).addClass("image-missing");
-}
+// function handleImageMissing(self) {
+//   $(self).addClass("image-missing");
+// }
+
+// function checkAllergie() {
+// let values= document.getElementById('').values;
+// }
+
+
